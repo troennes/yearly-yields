@@ -42,3 +42,7 @@ How to find icons that fit in:
 2. Search using the "Lineal Color" filter
 3. Download as 128x128px PNG file
 4. Store it in the icons folder
+
+## Contributing
+
+Don't be afraid to contribute! For now, create an issue if you see room for improvement, and we'll take it from there.
