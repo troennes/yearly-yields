@@ -1,6 +1,6 @@
 # Yearly yields
 
-Showcase your yearly yields from farming or gardening
+Showcase your yearly crop yields from farming or gardening.
 
 ![](screenshot.png)
 
@@ -20,8 +20,8 @@ Showcase your yearly yields from farming or gardening
   - description: subspecies or other description (subtitle)
   - yield: amount and unit
   - type: can be "fruit", "vegetable" or "product". Berries are fruits
-  - icon: filename in icons folder without .png (./icons/**fruit-apple**.png)
-  - img: (optional) filename in img folder without .jpg (./img/**apple-tree-1**.jpg)
+  - icon: filename in icons folder without .png (./icons/***fruit-apple***.png)
+  - img: (optional) filename in img folder without .jpg (./img/***apple-tree-1***.jpg)
 
 Example
 
