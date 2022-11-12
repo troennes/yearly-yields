@@ -2,6 +2,8 @@
 
 Showcase your yearly yields from farming or gardening
 
+![](screenshot.png)
+
 ## Features
 
 - Works offline, without a webserver
