@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvest of 2022</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    .card:hover {box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.4),0 0 0 1px rgba(10,10,10,.08) }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-2">
+        Harvest of 2022
+      </h1>
+      <p class="subtitle is-4">
+        My yearly yields
+      </p>
+	  
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-size-4">Fruits and berries</h2>
+      <div id="fruits" class="columns is-multiline"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-size-4">Vegetables, salads and herbs</h2>
+      <div id="vegetables" class="columns is-multiline"></div>
+    </div>
+  </section> 
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-size-4">Products</h2>
+      <div id="products" class="columns is-multiline"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>© 2022. By Kim Trønnes. Content licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC-SA 4.0</a>.</p>
+      <p>
+        Built with <a href="https://bulma.io">Bulma</a>. Icons by <a href="https://www.flaticon.com/authors/aomam">AomAm</a>, 
+        <a href="https://www.flaticon.com/free-icons/blackcurrant" title="blackcurrant icons">Vitaly Gorbachev</a>, 
+        <a href="https://www.flaticon.com/free-icons/strawberry" title="strawberry icons">Creaticca Creative Agency</a>, 
+        <a href="https://www.flaticon.com/free-icons/goji" title="goji icons">Eucalyp</a>, 
+        <a href="https://www.flaticon.com/free-icons/chives" title="chives icons">Freepik</a> and 
+        <a href="https://www.flaticon.com/packs/fruit-and-veggies-2">Smashicons</a> on 
+        <a href="https://www.flaticon.com/">Flaticon.com</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    
+    const fruits = data.filter(element => element.type === "fruit");
+    const vegetables = data.filter(element => element.type === "vegetable");
+    const products = data.filter(element => element.type === "product");
+    
+    const printoutElement = (element) => {
+      if (element.img)  
+        return `<div class="column is-one-third"><a class="js-modal-trigger" data-target="${element.img}-modal"><div class="card">
+          <div class="card-content"><div class="media"><div class="media-left"><figure class="image is-48x48">
+          <img src="icons/${element.icon}.png" alt="${element.icon} icon"></figure></div><div class="media-content"><p class="title is-5">
+          ${element.name}</p><p class="subtitle is-6">${element.description}</p></div><div class="media-right"><p class="title is-2">
+          ${element.yield}</p></div></div></div></div></a></div><div id="${element.img}-modal" class="modal"><div class="modal-background">
+          </div><div class="modal-content"><p class="image"><img src="img/${element.img}.jpg" alt=""></p></div>
+          <button class="modal-close is-large" aria-label="close"></button></div>`;     
+      else
+        return `<div class="column is-one-third"><div class="card"><div class="card-content"><div class="media"><div class="media-left">
+          <figure class="image is-48x48"><img src="icons/${element.icon}.png" alt="${element.icon} icon"></figure></div>
+          <div class="media-content"><p class="title is-5">${element.name}</p><p class="subtitle is-6">${element.description}</p></div>
+          <div class="media-right"><p class="title is-2">${element.yield}</p></div></div></div></div></div>`;     
+    }
+    
+    document.querySelector('#fruits').innerHTML = fruits.reduce((html, element) => html += printoutElement(element), "");
+    document.querySelector('#vegetables').innerHTML = vegetables.reduce((html, element) => html += printoutElement(element), "");
+    document.querySelector('#products').innerHTML = products.reduce((html, element) => html += printoutElement(element), "");
+
+    // Image modals (from https://bulma.io/documentation/components/modal/)
+    document.addEventListener('DOMContentLoaded', () => {
+      function openModal($el) {
+        $el.classList.add('is-active');
+      }
+
+      function closeModal($el) {
+        $el.classList.remove('is-active');
+      }
+
+      function closeAllModals() {
+        (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+          closeModal($modal);
+        });
+      }
+
+      (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+        const modal = $trigger.dataset.target;
+        const $target = document.getElementById(modal);
+
+        $trigger.addEventListener('click', () => {
+          openModal($target);
+        });
+      });
+
+      (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || [])
+        .forEach(($close) => {
+          const $target = $close.closest('.modal');
+
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+
+      document.addEventListener('keydown', (event) => {
+        const e = event || window.event;
+
+        if (e.keyCode === 27) { // Escape key
+          closeAllModals();
+        }
+      });
+    }); 
+  </script>
+</body>
+</html>
